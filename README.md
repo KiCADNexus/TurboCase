@@ -1,3 +1,19 @@
+
+
+
+
+
+python main.py --bottom 0 --standoff 5 test-boards/amp.kicad_pcb out.scad
+
+
+
+
+
+
+
+
+
+
 # Turbocase
 
 Making a nice case for a PCB project is not terribly hard, but it is annoyingly time consuming if you just want a

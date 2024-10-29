@@ -1,4 +1,5 @@
 import logging
+import math
 
 
 def esc(inp):
@@ -131,13 +132,20 @@ def generate(case, show_pcb=False):
     for insert in case.get_inserts():
         result += _make_insert_parameters(insert)
 
+    result += '/* [Gridfinity] */\n'
+    result += f'gridx = {math.ceil(case.get_case_size()[0] / 42.0)}; // [1:1:8]\n'
+    result += f'gridy = {math.ceil(case.get_case_size()[1] / 42.0)}; // [1:1:8]\n'
+    result += '\n'
+
+
     result += '/* [Hidden] */\n'
     result += '$fa=$preview ? 10 : 4;\n'
     result += '$fs=0.2;\n'
     result += f'inner_height = floor_height + standoff_height + pcb_thickness + headroom;\n'
     result += '\n'
 
-    with open("turbocase/templates/baseBox.scad", "r") as file:
+    # with open("turbocase/templates/baseBox.scad", "r") as file:
+    with open("turbocase/templates/gridfinityHolder.scad", "r") as file:
         result += file.read().lstrip() + "\n"
 
     for m in case.modules:
@@ -151,7 +159,7 @@ def generate(case, show_pcb=False):
     center = case.get_center()
     result += f'rotate([render == "lid" ? 180 : 0, 0, 0])\n'
     result += f'scale([1, -1, 1])\n'
-    result += f'translate([-{center[0]}, -{center[1]}, 0]) ' + '{\n'
+    result += f'translate([-{center[0]}, -{center[1]}, h_offset]) ' + '{\n'
 
     result += f'    pcb_top = floor_height + standoff_height + pcb_thickness;\n'
     result += '\n'

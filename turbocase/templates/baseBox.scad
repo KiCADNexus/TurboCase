@@ -1,3 +1,6 @@
+
+h_offset = 0;
+
 module wall (thickness, height) {
     linear_extrude(height, convexity=10) {
         difference() {

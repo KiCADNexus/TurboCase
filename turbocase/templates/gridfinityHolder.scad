@@ -9,13 +9,8 @@
  * https://www.printables.com/model/274917-gridfinity-rebuilt-in-openscad
  */
 
-include <gridfinity-rebuilt-openscad/gridfinity-rebuilt-utility.scad>
-
-/* [General Settings] */
-// number of bases along x-axis
-gridx = 2; // [1:1:8]
-// number of bases along y-axis
-gridy = 2; // [1:1:8]
+include <turbocase/templates/gridfinity-rebuilt-openscad/gridfinity-rebuilt-utility.scad>
+include <turbocase/templates/baseBox.scad>
 
 /* [Features] */
 // only cut magnet/screw holes at the corners of the bin to save uneccesary print time
@@ -27,6 +22,9 @@ style_hole = 1; // [0:no holes, 1:magnet holes only, 2: magnet and screw holes -
 div_base_x = 0;
 // number of divisions per 1 unit of base along the Y axis. (default 1, only use integers. 0 means automatically guess the right division)
 div_base_y = 0;
+
+/* [Compatibility] */
+h_offset = bp_h_bot;
 
 module __end_customizer_options__() { }
 
@@ -61,12 +59,9 @@ module gf_bin() {
 
 // Main Module //
 
-module main() {
-    gf_init() {
-        color("cornflowerblue", 0.8)
-        render(convexity=4)
-        gf_bin();
-    }
+gf_init() {
+    // color("cornflowerblue", 0.8)
+    render(convexity=4)
+    gf_bin();
 }
 
-main();
