@@ -16,6 +16,9 @@ include <turbocase/templates/baseBox.scad>
 // only cut magnet/screw holes at the corners of the bin to save uneccesary print time
 only_corners = false;
 
+// Forces the walls to be 0 height
+inner_height = 0;
+
 /* [Base] */
 style_hole = 1; // [0:no holes, 1:magnet holes only, 2: magnet and screw holes - no printable slit, 3: magnet and screw holes - printable slit, 4: Gridfinity Refined hole - no glue needed]
 // number of divisions per 1 unit of base along the X axis. (default 1, only use integers. 0 means automatically guess the right division)
