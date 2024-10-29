@@ -1,0 +1,3 @@
+[submodule "turbocase/templates/gridfinity-rebuilt-openscad"]
+	path = turbocase/templates/gridfinity-rebuilt-openscad
+	url = https://github.com/kennetek/gridfinity-rebuilt-openscad.git
