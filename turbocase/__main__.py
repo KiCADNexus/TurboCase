@@ -42,6 +42,7 @@ def main():
     parser.add_argument('--show-pcb', help='Show the PCB placeholder by default [default false]', default=False,
                         action='store_true')
     parser.add_argument('--lid', help='Lid construction model', choices=['cap', 'inner-fit'], default='cap')
+    parser.add_argument('--template', help='Name of the template to use', choices=['base', 'gridfinity'], default='base')
 
     parser.add_argument('--verbose', '-v', action='store_true', help='Show log messages')
     parser.add_argument('--debug', action='store_true', help='Display a lot of debugging info')
@@ -83,6 +84,7 @@ def main():
     case.wall_thickness = args.wall
     case.standoff_height = args.standoff
     case.lid_model = args.lid
+    case.template = args.template
 
     log.info(f'Generating output at "{args.output}"')
     if format == 'scad':

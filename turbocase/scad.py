@@ -48,8 +48,12 @@ def generate(case, show_pcb=False):
 
     env = Environment(loader=FileSystemLoader('.'))
 
-    template = env.get_template("turbocase/templates/baseBox.scad")
-    # template = env.get_template("turbocase/templates/gridfinityHolder.scad")
+    if case.template == 'base':
+        template = env.get_template("turbocase/templates/baseBox.scad")
+    elif case.template == 'gridfinity': 
+        template = env.get_template("turbocase/templates/gridfinityHolder.scad")
+    else:
+        raise Exception(f'Unknown template "{case.template}"')
 
     _compile_case_shapes(case)
 
