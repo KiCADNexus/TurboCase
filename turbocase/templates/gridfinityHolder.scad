@@ -1,23 +1,18 @@
-/*
- * Gridfinity Rebuilt Bins
- * By smkent (GitHub) / bulbasaur0 (Printables)
- *
- * Licensed under Creative Commons (4.0 International License) Attribution-ShareAlike
- *
- * Remix of Gridfinity Rebuilt in OpenSCAD by kennetek
- * https://github.com/kennetek/gridfinity-rebuilt-openscad
- * https://www.printables.com/model/274917-gridfinity-rebuilt-in-openscad
- */
+
+/* [Gridfinity] */
+gridx = {{ (case.width / 42.0)|round(method='ceil') }}; // [1:1:8]
+gridy = {{ (case.height / 42.0)|round(method='ceil') }}; // [1:1:8]
 
 include <turbocase/templates/gridfinity-rebuilt-openscad/gridfinity-rebuilt-utility.scad>
-include <turbocase/templates/baseBox.scad>
+
+{% include "turbocase/templates/baseConstants.scad" %}
 
 /* [Features] */
 // only cut magnet/screw holes at the corners of the bin to save uneccesary print time
 only_corners = false;
 
 // Forces the walls to be 0 height
-inner_height = 0;
+// inner_height = 0;
 
 /* [Base] */
 style_hole = 1; // [0:no holes, 1:magnet holes only, 2: magnet and screw holes - no printable slit, 3: magnet and screw holes - printable slit, 4: Gridfinity Refined hole - no glue needed]
@@ -28,6 +23,8 @@ div_base_y = 0;
 
 /* [Compatibility] */
 h_offset = bp_h_bot;
+
+{% include "turbocase/templates/baseModules.scad" %}
 
 module __end_customizer_options__() { }
 
@@ -68,3 +65,4 @@ gf_init() {
     gf_bin();
 }
 
+{% include "turbocase/templates/baseContainer.scad" %}

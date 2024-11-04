@@ -37,16 +37,14 @@ def _compile_case_shapes(case):
 
     case.connectors = sorted(case.connectors, key=lambda x: x.reference)
 
+    case.width = case.get_case_size()[0]
+    case.height = case.get_case_size()[1]
+
 
 def generate(case, show_pcb=False):
     """
     :type case: Case
     """
-
-    # result += '/* [Gridfinity] */\n'
-    # result += f'gridx = {math.ceil(case.get_case_size()[0] / 42.0)}; // [1:1:8]\n'
-    # result += f'gridy = {math.ceil(case.get_case_size()[1] / 42.0)}; // [1:1:8]\n'
-    # result += '\n'
 
     env = Environment(loader=FileSystemLoader('.'))
 

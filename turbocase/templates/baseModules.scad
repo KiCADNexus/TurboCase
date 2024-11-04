@@ -1,41 +1,4 @@
 
-/* [Rendering options] */
-// Show placeholder PCB in OpenSCAD preview
-show_pcb = {% if show_pcb == True %}true{% else %}false{% endif %};
-// Lid mounting method
-lid_model = "{{ case.lid_model }}"; // [cap, inner-fit]
-// Conditional rendering
-render = "case"; // [all, case, lid]
-
-/* [Dimensions] */
-// Height of the PCB mounting stand-offs between the bottom of the case and the PCB
-standoff_height = {{ case.standoff_height }};
-// PCB thickness
-pcb_thickness = {{ case.pcb_thickness }};
-// Bottom layer thickness
-floor_height = {{ case.floor_thickness }};
-// Case wall thickness
-wall_thickness = {{ case.wall_thickness }};
-// Space between the top of the PCB and the top of the case
-headroom = {{ [case.max_connector_height, case.max_part_height - case.standoff_height - case.pcb_thickness]|max }};
-
-{% for insert in inserts %}
-
-/* [{{insert[0]}} screws] */
-// Outer diameter for the insert
-// 0.77 is added partially as a sane-ish default, but also to force OpenSCAD to allow 2 positions of floating point
-// precision in the customizer for this value
-insert_{{insert[0]}}_diameter = {{insert[1] + 0.77}};
-// Depth of the insert
-insert_{{insert[0]}}_depth = {{insert[1] * 1.5}};
-
-{% endfor %}
-
-
-/* [Hidden] */
-$fa=$preview ? 10 : 4;
-$fs=0.2;
-inner_height = floor_height + standoff_height + pcb_thickness + headroom;
 
 module wall (thickness, height) {
     linear_extrude(height, convexity=10) {
@@ -72,7 +35,6 @@ module lid(thickness, height, edge) {
         }
     }
 }
-
 
 module box(wall_thick, bottom_layers, height) {
     if (render == "all" || render == "case") {
@@ -121,13 +83,13 @@ module pcb() {
     {% for pcb_hole in case.pcb_holes %}
         {% if pcb_hole.is_circle -%}
             translate([{{ pcb_hole.point[0] }}, {{ pcb_hole.point[1] }}, -1])
-                cylinder(pcb_thickness+2, {{ pcb_hole.radius }}, {{ pcb_hole.radius }});
+            cylinder(pcb_thickness+2, {{ pcb_hole.radius }}, {{ pcb_hole.radius }});
         {% elif pcb_hole.is_rect -%}
             translate([{{ pcb_hole.point[0] }}, {{ pcb_hole.point[1] }}, 0])
                 cube([{{ pcb_hole.width }}, {{ pcb_hole.height }}, pcb_thickness + 2], center=true);
         {% else -%}
             translate([0, 0, -1])
-                linear_extrude(pcb_thickness+2)
+            linear_extrude(pcb_thickness+2)
                     {{ pcb_hole.points }}
         {% endif -%}
     {% endfor %}
