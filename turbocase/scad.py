@@ -1,5 +1,4 @@
 import logging
-import math
 from jinja2 import Environment, PackageLoader, FileSystemLoader
 
 
