@@ -102,10 +102,10 @@ class Case:
     def _diam_to_screw(self, diameter):
         sizes = {
             'M1': 1,
-            'M2.5': 2.5,
+            'M2_5': 2.5,
             'M3': 3,
             'M4': 4,
-            'M4.5': 4.5,
+            'M4_5': 4.5,
             'M5': 5,
             'M6': 6,
             'M8': 8,
